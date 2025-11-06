@@ -1,0 +1,43 @@
+{
+  "id": null,
+  "title": "my-api Observability Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 27,
+  "version": 1,
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Latence 95e percentile (s)",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{app=\"my-api\"}[5m])) by (le))",
+          "legendFormat": "latence p95"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Taux d\u2019erreurs HTTP 5xx (%)",
+      "targets": [
+        {
+          "expr": "sum(rate(http_requests_total{app=\"my-api\",status=~\"5..\"}[5m])) / sum(rate(http_requests_total{app=\"my-api\"}[5m])) * 100",
+          "legendFormat": "erreurs 5xx"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Saturation CPU et m\u00e9moire",
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{pod=~\"my-api.*\"}[5m]))",
+          "legendFormat": "CPU usage"
+        },
+        {
+          "expr": "sum(container_memory_usage_bytes{pod=~\"my-api.*\"}) / sum(machine_memory_bytes) * 100",
+          "legendFormat": "RAM usage (%)"
+        }
+      ]
+    }
+  ]
+}
