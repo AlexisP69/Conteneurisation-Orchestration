@@ -8,7 +8,7 @@ et un début de CI/CD.
 - `app/api/` : API FastAPI minimaliste (endpoints `/` et `/health`)
 - `app/front/` : Front HTML statique servi par NGINX
 - `k8s/` : Manifests Kubernetes (namespace, deployments, services, configmap, secret)
-- `.github/workflows/` : Workflow CI GitHub Actions (build de l'image API)
+- `workflows/` : Workflow CI GitHub Actions (build de l'image API)
 - `docs/` : Documentation technique
 - `docker-compose.yml` : Mode développement local
 - `README.md` : Présent fichier
