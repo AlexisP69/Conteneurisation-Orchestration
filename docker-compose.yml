@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./app/api
+    container_name: datapress-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DP_ENV=dev
+      - WELCOME_MESSAGE=Bienvenue en mode développement DataPress POC
+    networks:
+      - datapress-net
+
+  front:
+    build: ./app/front
+    container_name: datapress-front
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - datapress-net
+
+networks:
+  datapress-net:
+    driver: bridge
